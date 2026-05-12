@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Login</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Login to your AI Mock Interview dashboard.">
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="login-body">
+
+  <div class="login-box">
+    <h2>Login</h2>
+
+    <input type="email" placeholder="Enter Email" id="email">
+    <input type="password" placeholder="Enter Password" id="password">
+
+    <button onclick="login()">Login</button>
+    <p style="margin-top:10px;">
+      Don't have an account?
+      <a href="register.html" style="color:white;">Register</a>
+    </p>
+  </div>
+
+  <script>
+    function login() {
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+
+      if (!email || !password) {
+        alert("Please fill all fields");
+        return;
+      }
+
+      const users = JSON.parse(localStorage.getItem("users")) || [];
+
+      const foundUser = users.find(user =>
+        user.email === email && user.password === password
+      );
+
+      if (foundUser) {
+        localStorage.setItem("user", email);
+        window.location.href = "dashboard.html";
+      } else {
+        alert("Invalid Email or Password");
+      }
+    }
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>AI Mock Interview</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Practice your interviews with AI-powered mock interviews. Get instant feedback, analytics, and improve your confidence!">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <div class="top-bar">
+        <div class="top-left">
+            <h2>AI Mock Interview</h2>
+
+        </div>
+        <div class="user-info">
+            <span id="username"></span>
+
+            <div class="user-avatar" id="avatar" onclick="toggleProfileMenu(event)"></div>
+
+            <div id="profileDropdown" class="profile-dropdown">
+
+                <button onclick="logout()" class="logout-btn">
+                    <img src="images/logout.jpg" class="logout-icon"><span>Logout</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-layout">
+
+        <div class="left-panel">
+            <div class="card interview-card">
+                <label>Select Role</label>
+                <!-- role selector: dropdown list plus manual input (Other) -->
+                <select id="roleSelect" onchange="toggleManualRole(this.value)">
+                    <option value="" disabled selected style="color: #fff;">Select a job role</option>
+                    <option value="Frontend Developer">Frontend Developer</option>
+                    <option value="Backend Developer">Backend Developer</option>
+                    <option value="Full Stack Developer">Full Stack Developer</option>
+                    <option value="DevOps Engineer">DevOps Engineer</option>
+                    <option value="Data Scientist">Data Scientist</option>
+                    <option value="Software Engineer">Software Engineer</option>
+                    <option value="Machine Learning Engineer">Machine Learning Engineer</option>
+                    <option value="System Administrator">System Administrator</option>
+                    <option value="Database Administrator">Database Administrator</option>
+                    <option value="Network Engineer">Network Engineer</option>
+                    <option value="Security Engineer">Security Engineer</option>
+                    <option value="Business Analyst">Business Analyst</option>
+                    <option value="Project Manager">Project Manager</option>
+                    <option value="Technical Writer">Technical Writer</option>
+                    <option value="QA Engineer">QA Engineer</option>
+                    <option value="UI/UX Designer">UI/UX Designer</option>
+                    <option value="Product Manager">Product Manager</option>
+                    <option value="Mobile Developer">Mobile Developer</option>
+                    <option value="other">Other (manual entry)</option>
+                </select>
+                <input type="text" id="roleManual" placeholder="Or type a role" style="display:none; margin-top:8px;">
+
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+                    <select id="difficultySelect" style="width: 160px;">
+                        <option value="beginner" selected>Beginner</option>
+                        <option value="mid">Mid</option>
+                        <option value="job-ready">Job Ready</option>
+                    </select>
+                    <button onclick="generateQuestion(event)" class="evaluate">Generate Question</button>
+                </div>
+
+                <div id="loading" class="spinner-container" style="display:none;">
+                    <div class="spinner"></div>
+                    <p>Loading question...</p>
+                </div>
+
+                <div id="questionBox" class="question"></div>
+
+                <div id="timer">
+                    Time Left: <span id="timeValue">05:00</span>
+                </div>
+
+                <div class="textarea-wrapper">
+                    <textarea id="answer" placeholder="Type your answer here..."></textarea>
+                    <button id="voiceBtn" class="voice-btn">
+                        <img src="images/mic.jpg" class="mic-img">
+                    </button>
+                </div>
+
+                <button onclick="evaluateAnswer(event)" class="evaluate">Evaluate Answer</button>
+
+                <div id="feedbackLoading" class="spinner-container" style="display:none;">
+                    <div class="spinner"></div>
+                    <p>Evaluating answer...</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-panel">
+
+            <div class="card chart-card">
+                <h3>Performance Analytics</h3>
+                <div id="analyticsScore" class="chart-flex-container">
+                    <div id="analyticsScoreBadge">Score: 0/10</div>
+                    <div class="canvas-wrapper">
+                        <canvas id="scoreChart" width="220" height="220"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card feedback-card" id="writtenFeedbackCard">
+                <h3>Detailed Feedback</h3>
+                <div id="writtenFeedbackText" class="scrolling-feedback">
+                    Feedback will appear here after evaluation...
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- USER CHECK -->
+    <script>
+        const user = localStorage.getItem("user");
+
+        if (!user) {
+            window.location.href = "login.html";
+        } else {
+            document.getElementById("username").innerText = user;
+            const firstLetter = user.charAt(0).toUpperCase();
+            document.getElementById("avatar").innerText = firstLetter;
+        }
+    </script>
+
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>
